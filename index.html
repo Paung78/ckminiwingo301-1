@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    <title>6 Wingo 30 - Results Data Viewer</title>
+    <title>CK Wingo 30 - Results Data Viewer</title>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
@@ -17,8 +17,8 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #041330;
-            background-image: radial-gradient(circle at 20% 20%, rgba(220, 80, 107, 0.35), transparent 45%),
-                              radial-gradient(circle at 80% 0%, rgba(145, 64, 107, 0.25), transparent 50%),
+            background-image: radial-gradient(circle at 20% 20%, rgba(75, 176, 255, 0.35), transparent 45%),
+                              radial-gradient(circle at 80% 0%, rgba(0, 160, 255, 0.25), transparent 50%),
                               linear-gradient(135deg, #031536 0%, #041d43 50%, #021230 100%);
             padding: 32px;
             min-height: 100vh;
@@ -38,9 +38,8 @@
             padding: 32px;
             position: relative;
             z-index: 1;
-            border: 1px solid rgba(255, 107, 107, 0.18);
+            border: 1px solid rgba(110, 203, 255, 0.18);
             box-shadow: 0 10px 24px rgba(3, 7, 30, 0.45);
-            backdrop-filter: blur(6px);
         }
 
         /* View_Results page h1 - Black color */
@@ -61,26 +60,7 @@
             text-overflow: clip;
             word-break: keep-all;
             line-height: 1.2;
-            text-shadow: none;
-        }
-        
-        .title-subtitle {
-            color: #ffd782;
-            margin: 0 auto 18px;
-            font-size: 1.15rem;
-            font-weight: 800;
-            letter-spacing: 0.28em;
-            text-transform: uppercase;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            text-shadow:
-                0 0 12px rgba(255, 215, 130, 0.85),
-                0 0 28px rgba(255, 215, 130, 0.45),
-                0 0 40px rgba(255, 215, 130, 0.25);
+            text-shadow: 0 0 40px rgba(255, 215, 130, 0.25);
         }
 
         .title-subtitle span {
@@ -108,7 +88,7 @@
         }
 
         button {
-            background: linear-gradient(120deg, #ef706b, #be146b);
+            background: linear-gradient(120deg, #5ed0ff, #2d74ff);
             color: #fefefe;
             border: 0;
             padding: 12px 24px;
@@ -118,13 +98,11 @@
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            box-shadow: 0 8px 20px rgba(190, 20, 107, 0.35);
+            box-shadow: 0 8px 20px rgba(45, 116, 255, 0.35);
         }
 
         button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 26px rgba(190, 20, 107, 0.45);
+            box-shadow: 0 12px 26px rgba(45, 116, 255, 0.45);
         }
 
         button:disabled {
@@ -175,7 +153,6 @@
 
         .status.loading::before {
             background: var(--main-color);
-            animation: pulse 1.5s infinite;
         }
 
         .status.success::before {
@@ -187,14 +164,8 @@
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(0.9); }
-        }
-
-        @keyframes aurora {
-            0% { transform: translate(-5%, -5%) scale(1); opacity: 0.9; }
-            50% { transform: translate(8%, 6%) scale(1.1); opacity: 0.65; }
-            100% { transform: translate(-5%, -5%) scale(1); opacity: 0.9; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
         table {
@@ -205,7 +176,7 @@
             background: transparent;
             border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(255, 107, 107, 0.18);
+            border: 1px solid rgba(110, 203, 255, 0.18);
             box-shadow: 0 12px 24px rgba(2, 8, 20, 0.45);
         }
 
@@ -235,10 +206,9 @@
 
         td {
             padding: 18px 22px;
-            border-bottom: 1px solid rgba(255, 107, 107, 0.1);
+            border-bottom: 1px solid rgba(110, 203, 255, 0.1);
             font-size: 0.95rem;
             color: rgba(223, 239, 255, 0.95);
-            transition: all 0.25s ease;
             background: rgba(6, 18, 44, 0.75);
         }
 
@@ -248,9 +218,6 @@
             font-weight: 800;
         }
 
-        tbody tr {
-            transition: all 0.25s ease;
-        }
 
         tbody tr:hover {
             background: rgba(21, 53, 103, 0.85);
@@ -328,7 +295,7 @@
             background: linear-gradient(145deg, rgba(7, 23, 45, 0.9), rgba(10, 32, 66, 0.85));
             padding: 26px;
             border-radius: 20px;
-            border: 1px solid rgba(255, 107, 107, 0.35);
+            border: 1px solid rgba(110, 203, 255, 0.35);
             box-shadow: 0 16px 28px rgba(5, 12, 24, 0.7);
             position: relative;
             overflow: hidden;
@@ -338,7 +305,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at 10% 20%, rgba(255, 107, 107, 0.25), transparent),
+            background: radial-gradient(circle at 10% 20%, rgba(110, 203, 255, 0.25), transparent),
                         radial-gradient(circle at 80% 0%, rgba(255, 215, 0, 0.25), transparent);
             opacity: 0.6;
             pointer-events: none;
@@ -359,7 +326,7 @@
             height: 52px;
             background: rgba(255, 255, 255, 0.06);
             border-radius: 26px;
-            border: 1px solid rgba(255, 107, 107, 0.25);
+            border: 1px solid rgba(110, 203, 255, 0.25);
             overflow: hidden;
             position: relative;
         }
@@ -427,12 +394,6 @@
             height: 8px;
             background: var(--main-color);
             border-radius: 50%;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         .last-update {
@@ -486,55 +447,13 @@
             opacity: 0.65;
             pointer-events: none;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(240, 95, 107, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(190, 20, 107, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(215, 64, 107, 0.18) 0%, transparent 70%);
-            animation: cosmicPulse 8s ease-in-out infinite;
-        }
-        
-        @keyframes cosmicPulse {
-            0%, 100% { opacity: 0.65; transform: scale(1); }
-            50% { opacity: 0.85; transform: scale(1.03); }
+                radial-gradient(circle at 20% 30%, rgba(95, 191, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(45, 116, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(70, 160, 255, 0.18) 0%, transparent 70%);
         }
         
         .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #ff706b;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: float3D 10s infinite linear;
-            box-shadow: 0 0 6px rgba(255, 112, 107, 0.55), 0 0 12px rgba(255, 112, 107, 0.25);
-        }
-        
-        .particle:nth-child(3n) {
-            width: 4px;
-            height: 4px;
-            box-shadow: 0 0 8px rgba(255, 112, 107, 0.6), 0 0 16px rgba(255, 112, 107, 0.35);
-        }
-        
-        .particle:nth-child(5n) {
-            width: 2px;
-            height: 2px;
-            opacity: 0.4;
-        }
-        
-        @keyframes float3D {
-            0% {
-                transform: translate3d(0, 100vh, 0) rotateZ(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate3d(100px, -100px, 200px) rotateZ(360deg);
-                opacity: 0;
-            }
+            display: none;
         }
         
         /* 3D Logo container with perspective and enhanced effects */
@@ -547,8 +466,6 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
-            transform-style: preserve-3d;
-            filter: drop-shadow(0 0 20px rgba(255, 107, 107, 0.3));
         }
         
         /* Text below LT logo */
@@ -557,16 +474,14 @@
             width: 100%;
             margin-top: 40px;
             text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: textAppear 0.6s ease-out 1.4s forwards;
+            opacity: 1;
         }
         
         .logo-text-main {
             font-family: 'Arial', 'Impact', sans-serif;
             font-size: 18px;
             font-weight: 600;
-            color: #ff706b;
+            color: #7fd0ff;
             letter-spacing: 1px;
             margin-bottom: 8px;
         }
@@ -587,142 +502,31 @@
             letter-spacing: -18px;
             line-height: 1.2;
             position: relative;
-            transform-style: preserve-3d;
-            opacity: 0;
-            animation: logo3DEntry 2.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-            filter: drop-shadow(0 0 15px rgba(255, 107, 107, 0.35));
+            opacity: 1;
         }
         
         
         .lt-logo .letter-l {
             display: inline-block;
-            color: #ff706b;
+            color: #7fd0ff;
             position: relative;
-            transform-style: preserve-3d;
         }
         
         .lt-logo .letter-t {
             display: inline-block;
             position: relative;
-            transform-style: preserve-3d;
-            color: #ff706b;
+            color: #7fd0ff;
         }
         
         /* Smooth diagonal bar that cuts through LT */
         .lt-logo::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -25%;
-            width: 180%;
-            height: 14px;
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                rgba(255, 255, 255, 1) 30%,
-                rgba(255, 255, 255, 1) 70%,
-                transparent 100%
-            );
-            box-shadow: 
-                0 0 10px rgba(255, 255, 255, 0.8),
-                0 0 20px rgba(255, 255, 255, 0.6);
-            transform: rotate(-45deg) translateY(-50%) translateX(-250%);
-            animation: barCutThrough 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
-            z-index: 100;
-            pointer-events: none;
-            border-radius: 2px;
+            display: none;
         }
         
-        /* Erase effect - creates gap in middle of LT when bar passes */
-        
-        /* Premium 3D Entry Animation */
-        @keyframes logo3DEntry {
-            0% {
-                opacity: 0;
-                transform: perspective(1500px) rotateX(90deg) rotateY(-20deg) scale(0.3) translateZ(-500px);
-                filter: blur(20px);
-            }
-            30% {
-                opacity: 1;
-                transform: perspective(1500px) rotateX(0deg) rotateY(10deg) scale(1.1) translateZ(0px);
-                filter: blur(5px);
-            }
-            60% {
-                transform: perspective(1500px) rotateX(0deg) rotateY(-5deg) scale(1) translateZ(0px);
-                filter: blur(0px);
-            }
-            80% {
-                transform: perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0px);
-            }
-            100% {
-                opacity: 1;
-                transform: perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0px);
-            }
-        }
-        
-        /* Fast bar cut through animation */
-        @keyframes barCutThrough {
-            0% {
-                transform: rotate(-45deg) translateY(-50%) translateX(-250%);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: rotate(-45deg) translateY(-50%) translateX(250%);
-                opacity: 0;
-            }
-        }
-        
-        /* Fast erase cut animation - creates gap in middle of LT */
-        @keyframes eraseCut {
-            0% {
-                transform: rotate(-45deg) translateY(-50%) translateX(-250%);
-                opacity: 0;
-            }
-            5% {
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
-            100% {
-                transform: rotate(-45deg) translateY(-50%) translateX(250%);
-                opacity: 0;
-            }
-        }
-        
-        /* Premium fade out with 3D zoom */
-        @keyframes fadeOut3D {
-            from {
-                opacity: 1;
-                transform: perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1) translateZ(0px);
-            }
-            to {
-                opacity: 0;
-                transform: perspective(1500px) rotateX(10deg) rotateY(10deg) scale(1.5) translateZ(200px);
-                filter: blur(10px);
-            }
-        }
-        
+        /* Premium fade out */
         #introAnimation.fade-out {
-            animation: fadeOut3D 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
-        }
-        
-        /* Text appear animation */
-        @keyframes textAppear {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         
         /* Mobile responsive - No Boxes, Smaller Text */
@@ -912,8 +716,8 @@
             overflow-x: hidden;
             overflow-y: auto;
             background: #03183c;
-            background-image: radial-gradient(circle at 20% 20%, rgba(220, 80, 107, 0.25), transparent 45%),
-                              radial-gradient(circle at 80% 0%, rgba(145, 64, 107, 0.2), transparent 50%),
+            background-image: radial-gradient(circle at 20% 20%, rgba(75, 176, 255, 0.25), transparent 45%),
+                              radial-gradient(circle at 80% 0%, rgba(0, 160, 255, 0.2), transparent 50%),
                               linear-gradient(135deg, #02163b 0%, #03224f 55%, #021432 100%);
             display: flex;
             align-items: center;
@@ -926,10 +730,8 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background: radial-gradient(60% 80% at 50% 20%, rgba(225, 72, 107, 0.3), transparent 60%);
-            filter: blur(80px);
+            background: radial-gradient(60% 80% at 50% 20%, rgba(80, 168, 255, 0.3), transparent 60%);
             opacity: 0.8;
-            animation: aurora 18s ease-in-out infinite;
         }
         
         .quantum-gate {
@@ -937,12 +739,10 @@
             padding: clamp(28px, 6vw, 48px);
             border-radius: 28px;
             background: rgba(5, 15, 35, 0.9);
-            border: 1px solid rgba(255, 107, 107, 0.35);
+            border: 1px solid rgba(110, 203, 255, 0.35);
             box-shadow:
                 0 25px 60px rgba(3, 7, 30, 0.85),
-                inset 0 0 45px rgba(255, 107, 107, 0.08);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
+                inset 0 0 45px rgba(110, 203, 255, 0.08);
             display: flex;
             flex-direction: column;
             gap: 18px;
@@ -972,7 +772,7 @@
             text-transform: uppercase;
             line-height: 1.3;
             white-space: normal;
-            text-shadow: 0 0 18px rgba(255, 107, 107, 0.55);
+            text-shadow: 0 0 18px rgba(110, 203, 255, 0.55);
             margin-bottom: 8px;
         }
         
@@ -981,17 +781,16 @@
             padding: 18px 22px;
             margin: 4px 0 8px;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 107, 107, 0.4);
+            border: 1px solid rgba(110, 203, 255, 0.4);
             border-radius: 18px;
             color: #e5f2ff;
             font-size: 1rem;
             text-align: center;
-            transition: all 0.35s ease;
             text-transform: uppercase;
             letter-spacing: 0.45em;
             font-weight: 700;
             font-family: 'Orbitron', sans-serif;
-            box-shadow: inset 0 0 25px rgba(255, 107, 107, 0.08);
+            box-shadow: inset 0 0 25px rgba(110, 203, 255, 0.08);
         }
         
         .quantum-input::placeholder {
@@ -1003,24 +802,22 @@
             outline: none;
             border-color: rgba(255, 255, 255, 0.85);
             background: rgba(255, 255, 255, 0.06);
-            box-shadow: 0 0 25px rgba(255, 107, 107, 0.35);
-            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(110, 203, 255, 0.35);
         }
         
         .quantum-button {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(120deg, #ef706b, #be146b);
+            background: linear-gradient(120deg, #5ed0ff, #2d74ff);
             border: none;
             border-radius: 999px;
             color: #ffffff;
             font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             letter-spacing: 0.35em;
             text-transform: uppercase;
-            box-shadow: 0 18px 38px rgba(190, 20, 107, 0.45);
+            box-shadow: 0 18px 38px rgba(45, 116, 255, 0.45);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -1028,8 +825,7 @@
         }
         
         .quantum-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 24px 45px rgba(190, 20, 107, 0.55);
+            box-shadow: 0 24px 45px rgba(45, 116, 255, 0.55);
         }
         
         .quantum-button i {
@@ -1040,14 +836,14 @@
         .loader {
             width: 68px;
             height: 68px;
-            border: 6px solid rgba(255, 107, 107, 0.2);
+            border: 6px solid rgba(110, 203, 255, 0.2);
             border-radius: 50%;
             position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
-            box-shadow: 0 0 18px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 0 18px rgba(110, 203, 255, 0.3);
         }
         
         .loader span {
@@ -1063,8 +859,8 @@
             position: absolute;
             top: 24.5px;
             left: 21px;
-            animation: load9243 1.2s linear infinite;
             transform-origin: top center;
+            animation: load9243 1.2s linear infinite;
         }
         
         .loader .min {
@@ -1079,7 +875,7 @@
             position: absolute;
             top: 19px;
             left: 19px;
-            background: #ff706b;
+            background: #7fd0ff;
         }
         
         @keyframes load9243 {
@@ -1092,7 +888,7 @@
             padding: 16px 18px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 20px;
-            border: 1px solid rgba(255, 107, 107, 0.35);
+            border: 1px solid rgba(110, 203, 255, 0.35);
             font-size: 0.85rem;
             color: #e6f6ff;
             font-weight: 700;
@@ -1121,7 +917,7 @@
             color: #e6f6ff;
             padding: 0.35em 0;
             font-size: 0.95rem;
-            border: 1px solid rgba(255, 107, 107, 0.35);
+            border: 1px solid rgba(110, 203, 255, 0.35);
             border-radius: 999px;
             letter-spacing: 0.3em;
             position: relative;
@@ -1134,8 +930,7 @@
             padding-right: 1.4em;
             width: 100%;
             cursor: pointer;
-            transition: all 0.35s ease;
-            box-shadow: inset 0 0 18px rgba(255, 107, 107, 0.12);
+            box-shadow: inset 0 0 18px rgba(110, 203, 255, 0.12);
         }
         
         .button .icon {
@@ -1148,24 +943,13 @@
             align-items: center;
             justify-content: center;
             left: 0.6em;
-            transition: all 0.45s;
         }
         
         .icon svg {
             margin-left: 0.1em;
-            transition: all 0.5s;
             color: var(--main-color-dark);
             width: 1.2rem;
             height: 1.2rem;
-        }
-        
-        .button:hover .icon svg {
-            transform: rotate(360deg);
-        }
-        
-        .button:hover .icon {
-            width: calc(100% - 1rem);
-            border-radius: 999px;
         }
         
         .button:hover {
@@ -1482,31 +1266,6 @@
             -webkit-tap-highlight-color: transparent;
         }
         
-        body, .container, .quantum-gate {
-            will-change: auto;
-        }
-        
-        .lt-logo, .letter-l, .letter-t, .bar-cut {
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
-        
-        .particle {
-            will-change: transform;
-            transform: translateZ(0);
-        }
-        
-        button, .quantum-input {
-            will-change: transform;
-            transform: translateZ(0);
-        }
-        
-        table, tbody, tr, td {
-            will-change: contents;
-        }
-        
         /* Smooth Scrolling */
         html {
             scroll-behavior: smooth;
@@ -1531,17 +1290,17 @@
         
         /* Professional Color Scheme - Light Blue Theme */
         :root {
-            --main-color: #FF6B6B;
-            --main-color-dark: #E94444;
-            --main-color-light: #FFB3B3;
-            --main-color-alpha-10: rgba(255, 107, 107, 0.1);
-            --main-color-alpha-20: rgba(255, 107, 107, 0.2);
-            --main-color-alpha-30: rgba(255, 107, 107, 0.3);
-            --main-color-alpha-50: rgba(255, 107, 107, 0.5);
-            --main-color-alpha-80: rgba(255, 107, 107, 0.8);
-            --yellow-accent: #FFD166;
+            --main-color: #6ecbff;
+            --main-color-dark: #2d7bdc;
+            --main-color-light: #a8e2ff;
+            --main-color-alpha-10: rgba(110, 203, 255, 0.1);
+            --main-color-alpha-20: rgba(110, 203, 255, 0.2);
+            --main-color-alpha-30: rgba(110, 203, 255, 0.3);
+            --main-color-alpha-50: rgba(110, 203, 255, 0.5);
+            --main-color-alpha-80: rgba(110, 203, 255, 0.8);
+            --yellow-accent: #ffd782;
             --white-bg: #ffffff;
-            --blue-bg: #3b0808;
+            --blue-bg: #0f2c4f;
         }
         
         /* Enhanced Button Styles */
@@ -1556,17 +1315,14 @@
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
         }
         
         button:hover {
-            transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
         
         button:active {
-            transform: translateY(-1px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
         }
         
@@ -1581,18 +1337,15 @@
             color: var(--main-color);
             font-size: 16px;
             text-align: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 600;
-            transform: translateZ(0);
         }
         
         .quantum-input:focus {
             outline: none;
             border-color: var(--main-color-dark);
             box-shadow: 0 0 0 3px var(--main-color-alpha-20);
-            transform: scale(1.02) translateZ(0);
         }
         
         .quantum-input::placeholder {
@@ -1647,7 +1400,7 @@
         
         tbody tr {
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 107, 107, 0.2);
+            border-bottom: 1px solid rgba(110, 203, 255, 0.2);
             background: transparent;
         }
 
@@ -1656,18 +1409,18 @@
         }
         
         tbody tr:nth-child(even) {
-            background: rgba(255, 107, 107, 0.05);
+            background: rgba(110, 203, 255, 0.05);
         }
         
         tbody tr:hover {
-            background: rgba(255, 107, 107, 0.15);
+            background: rgba(110, 203, 255, 0.15);
             transform: translateX(4px);
-            box-shadow: -4px 0 8px rgba(255, 107, 107, 0.2);
+            box-shadow: -4px 0 8px rgba(110, 203, 255, 0.2);
         }
         
         td {
             padding: 6px 4px;
-            border-bottom: 1px solid rgba(255, 107, 107, 0.2);
+            border-bottom: 1px solid rgba(110, 203, 255, 0.2);
             color: #ffffff;
             word-break: break-word;
             font-weight: 600;
@@ -1693,31 +1446,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            transform: translateZ(0);
         }
         
         .loading-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-        
-        
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
+            display: none;
         }
         
         .loading-bar.yellow {
@@ -1740,10 +1474,8 @@
             margin: 20px 0;
             padding: 14px;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border-radius: 12px;
-            border: 2px solid rgba(255, 107, 107, 0.5);
+            border: 2px solid rgba(110, 203, 255, 0.5);
             font-size: 1rem;
             color: var(--main-color);
             font-weight: 700;
@@ -1752,14 +1484,11 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            transform: translateZ(0);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(110, 203, 255, 0.2);
         }
         
         .quantum-timer:hover {
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
-            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(110, 203, 255, 0.3);
         }
         
         .quantum-timer-text {
@@ -1774,7 +1503,6 @@
             padding: 10px 0;
             border: none;
             box-shadow: none;
-            transform: translateZ(0);
         }
 
         .count-label {
@@ -1801,19 +1529,18 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
-            transform: translateZ(0);
         }
         
         /* Period Number Styling */
         .period-number {
             font-weight: 700;
-            color: #000000;
+            color: #ffffff;
             font-family: 'Courier New', monospace;
         }
         
-        /* Results Number Column - Black Color */
+        /* Results Number Column - White Color */
         td.number-column {
-            color: #000000 !important;
+            color: #ffffff !important;
             font-weight: 700;
         }
         
@@ -1852,7 +1579,7 @@
             background: linear-gradient(135deg, rgba(13, 36, 66, 0.85), rgba(9, 24, 48, 0.92));
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 107, 107, 0.35);
+            border: 1px solid rgba(110, 203, 255, 0.35);
             padding: 22px 24px;
             margin-bottom: 22px;
             border-radius: 20px;
@@ -1863,7 +1590,7 @@
         }
 
         .prediction-box:hover {
-            box-shadow: 0 6px 25px rgba(255, 107, 107, 0.25);
+            box-shadow: 0 6px 25px rgba(110, 203, 255, 0.25);
             transform: translateY(-2px);
         }
         
@@ -1875,7 +1602,7 @@
             margin-bottom: 16px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            text-shadow: 0 0 12px rgba(255, 107, 107, 0.55);
+            text-shadow: 0 0 12px rgba(110, 203, 255, 0.55);
         }
 
         .prediction-row {
@@ -1885,7 +1612,7 @@
             gap: 6px;
             padding: 12px 4px;
             width: 100%;
-            border-bottom: 1px solid rgba(255, 107, 107, 0.18);
+            border-bottom: 1px solid rgba(110, 203, 255, 0.18);
         }
         
         .prediction-row:first-of-type {
@@ -1941,7 +1668,7 @@
         .prediction-value.small,
         #predResult.small,
         #ckLotteryPredResult.small {
-            color: #91066b !important; /* Blue color, not light blue */
+            color: #0066ff !important; /* Blue color, not light blue */
         }
         
         /* Prediction Rate Styling */
@@ -1949,7 +1676,7 @@
             font-weight: 800;
             font-size: 0.88rem;
             font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.45);
+            text-shadow: 0 0 10px rgba(110, 203, 255, 0.45);
         }
         
         .prediction-rate.low {
@@ -1957,7 +1684,7 @@
         }
         
         .prediction-rate.medium {
-            color: #91066b !important; /* Blue */
+            color: #0066ff !important; /* Blue */
         }
         
         .prediction-rate.high {
@@ -1969,7 +1696,7 @@
             background: rgba(7, 18, 38, 0.82);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 107, 107, 0.2);
+            border: 1px solid rgba(110, 203, 255, 0.2);
             padding: 20px;
             margin-bottom: 18px;
             border-radius: 16px;
@@ -2055,48 +1782,28 @@
             justify-content: center;
             gap: 6px;
             padding: 16px 20px;
-            background: linear-gradient(135deg, rgba(255, 107, 107, 0.95) 0%, rgba(252, 86, 66, 0.95) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, rgba(110, 203, 255, 0.95) 0%, rgba(107, 182, 214, 0.95) 100%);
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 16px;
             color: white;
             font-size: 0.7rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4), 0 0 20px rgba(255, 107, 107, 0.2);
+            box-shadow: 0 8px 25px rgba(110, 203, 255, 0.4), 0 0 20px rgba(110, 203, 255, 0.2);
             min-width: 80px;
         }
         
         .nav-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-            border-radius: 16px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            display: none;
         }
         
         .nav-button:hover {
-            background: linear-gradient(135deg, rgba(255, 107, 107, 1) 0%, rgba(252, 86, 66, 1) 100%);
-            transform: translateY(-50%) scale(1.08);
-            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6), 0 0 30px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(135deg, rgba(110, 203, 255, 1) 0%, rgba(107, 182, 214, 1) 100%);
+            box-shadow: 0 12px 35px rgba(110, 203, 255, 0.6), 0 0 30px rgba(110, 203, 255, 0.4);
         }
         
-        .nav-button:hover::before {
-            opacity: 1;
-        }
-        
-        .nav-button:active {
-            transform: translateY(-50%) scale(1.02);
-        }
         
         .nav-button i {
             font-size: 1.5rem;
@@ -2241,7 +1948,7 @@
                 </div>
                 <div class="logo-text-container">
                     <div class="logo-text-main">Lottery Tricks Ai Perdition</div>
-                    <div class="logo-text-sub">6Win 30 Sec Mini V1.1</div>
+                    <div class="logo-text-sub">Ck WinGo 30 Sec Mini V1.1</div>
                 </div>
             </div>
         </div>
@@ -2279,8 +1986,8 @@
                 <div class="success-icon">
                     <i class="fas fa-check-circle"></i>
                 </div>
-                <h3 style="margin-bottom: 8px; color: #FF6B6B; font-size: 1rem;">QUANTUM ACCESS GRANTED</h3>
-                <p style="color: #FF6B6B; margin-bottom: 12px; font-size: 0.75rem;">Neural network initialized successfully</p>
+                <h3 style="margin-bottom: 8px; color: #6ecbff; font-size: 1rem;">QUANTUM ACCESS GRANTED</h3>
+                <p style="color: #6ecbff; margin-bottom: 12px; font-size: 0.75rem;">Neural network initialized successfully</p>
             </div>
         </div>
     </section>
@@ -2289,16 +1996,16 @@
     <div class="container results-container" id="resultsContainer">
         <h1>Lottery Tricks Ai Perdition</h1>
         <div class="title-subtitle">
-            <span>6Win 30 Sec Mini V1.1</span>
+            <span>Ck WinGo 30 Sec Mini V1.1</span>
         </div>
         <p class="subtitle">
-            <span class="realtime-indicator">â— LIVE</span>
+            <span class="realtime-indicator">● LIVE</span>
             Live - DataBase
         </p>
 
         <!-- Time Remaining Display on Results Page - Enhanced with Glassmorphism -->
-        <div id="resultsTimeRemaining" style="text-align: center; margin-bottom: 12px; padding: 12px 16px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 107, 107, 0.3); border-radius: 12px; box-shadow: 0 4px 15px rgba(255, 107, 107, 0.15); display: none; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease;">
-            <div class="loader" style="width: 32px; height: 32px; border-width: 3px; margin-right: 0; border-color: rgba(255, 107, 107, 0.2);">
+        <div id="resultsTimeRemaining" style="text-align: center; margin-bottom: 12px; padding: 12px 16px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(110, 203, 255, 0.3); border-radius: 12px; box-shadow: 0 4px 15px rgba(110, 203, 255, 0.15); display: none; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease;">
+            <div class="loader" style="width: 32px; height: 32px; border-width: 3px; margin-right: 0; border-color: rgba(110, 203, 255, 0.2);">
                 <span class="hour" style="width: 3px; height: 10px; top: 12px; left: 11px; background: var(--main-color);"></span>
                 <span class="min" style="width: 3px; height: 8px; top: 12px; left: 11px; background: var(--main-color);"></span>
                 <span class="circel" style="width: 5px; height: 5px; top: 10px; left: 10px; background: var(--main-color);"></span>
@@ -2313,7 +2020,7 @@
         
         <!-- Prediction Box -->
         <div id="predictionBox" class="prediction-box">
-            <div class="prediction-title">6 Wingo 30</div>
+            <div class="prediction-title">Ck Wingo 30</div>
             <div class="prediction-row">
                 <span class="prediction-label">Period</span>
                 <span id="predPeriod" class="prediction-value">-</span>
@@ -2359,7 +2066,7 @@
         <div id="ckLotteryContainer" class="ck-lottery-container" style="display: none;">
         <!-- Prediction Box for Ck Lottery Wasite -->
         <div id="ckLotteryPredictionBox" class="prediction-box">
-            <div class="prediction-title">6 Wingo 30</div>
+            <div class="prediction-title">Ck Wingo 30</div>
             <div class="prediction-row">
                 <span class="prediction-label">Period</span>
                 <span id="ckLotteryPredPeriod" class="prediction-value">-</span>
@@ -2374,11 +2081,11 @@
             </div>
         </div>
         
-        <!-- Iframe for 6 Wasite -->
+        <!-- Iframe for Ck Lottery Wasite -->
         <iframe 
             id="ckLotteryIframe" 
-            src="https://www.6win999.com/#/register?invitationCode=35815623835" 
-            title="6 Wasite" 
+            src="https://www.cklottery.club/#/register?invitationCode=81487219676" 
+            title="Ck Lottery Website" 
             frameborder="0"
             allowfullscreen
             loading="eager">
@@ -2388,7 +2095,7 @@
     <!-- Navigation Button for View Page (Center Right) -->
     <button id="navToWasiteBtn" class="nav-button nav-button-right" style="display: none;">
         <i class="fas fa-globe"></i>
-        <span>6 Wasite</span>
+        <span>Ck Lottery</span>
     </button>
     
     <!-- Navigation Button for Ck Lottery Wasite (Center Left) -->
@@ -2541,10 +2248,10 @@
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     
-                    // Check key type - only accept 6Wingo keys (strict validation)
-                    if (!data.keyType || data.keyType !== "6wingo") {
-                        const keyTypeName = data.keyType === "ck" ? "CK" : data.keyType === "bigwin" ? "BigWin" : "Unknown";
-                        alert(`❌ Invalid Key Type! This is a ${keyTypeName} key. Only keys generated by 6KeyAdmin can be used with 6 results pages.`);
+                    // Check key type - only accept CK keys (strict validation)
+                    if (!data.keyType || data.keyType !== "ck") {
+                        const keyTypeName = data.keyType === "6wingo" ? "6Wingo" : data.keyType === "bigwin" ? "BigWin" : "Unknown";
+                        alert(`❌ Invalid Key Type! This is a ${keyTypeName} key. Only keys generated by CkKeyAdmin can be used with CK results pages.`);
                         return;
                     }
                     
@@ -2698,7 +2405,7 @@
             activatedKeyId = null;
             
             // Show alert and redirect
-            alert(`âŒ ${reason || "Session expired"}. Redirecting to unlock page...`);
+            alert(`❌ ${reason || "Session expired"}. Redirecting to unlock page...`);
             
             const gate = document.getElementById("gate");
             const resultsContainer = document.getElementById("resultsContainer");
@@ -2723,11 +2430,26 @@
             measurementId: "G-6Z7DYPKHR2"
         };
 
+        // Dedicated Firebase app for realtime prediction publishing (matches ckmini19)
+        const PREDICTION_FIREBASE_CONFIG = {
+            apiKey: "AIzaSyBMRKbOavHAQTbufOjcAbnSxZH89-SeGek",
+            authDomain: "chackchack-d7445.firebaseapp.com",
+            databaseURL: "https://chackchack-d7445-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "chackchack-d7445",
+            storageBucket: "chackchack-d7445.firebasestorage.app",
+            messagingSenderId: "533782546151",
+            appId: "1:533782546151:web:13050e49252ca127388442"
+        };
+
+        const CHANNEL_KEY = 'CK30MINI1_HTML';
 
         // Firebase path
-        const FIREBASE_PATH = "6wingo30/default";
+        const FIREBASE_PATH = "ckwingo30/default";
 
         let db = null;
+        let predictionDb = null;
+        let predictionFirebaseApp = null;
+        let lastPredictionSignature = null;
         let currentResults = [];
         let firebaseListener = null;
 
@@ -2739,9 +2461,87 @@
                 return true;
             } catch (error) {
                 console.error('Firebase initialization error:', error);
-                showStatus(`âŒ Firebase initialization failed: ${error.message}`, 'error');
+                showStatus(`❌ Firebase initialization failed: ${error.message}`, 'error');
                 return false;
             }
+        }
+
+        function initializePredictionFirebase() {
+            try {
+                if (typeof firebase === 'undefined') {
+                    console.error('❌ Firebase SDK not loaded for predictions');
+                    return false;
+                }
+
+                if (predictionDb) {
+                    return true;
+                }
+
+                if (!predictionFirebaseApp) {
+                    if (firebase.apps && firebase.apps.length) {
+                        for (let i = 0; i < firebase.apps.length; i++) {
+                            if (firebase.apps[i].name === 'ck30Prediction') {
+                                predictionFirebaseApp = firebase.apps[i];
+                                break;
+                            }
+                        }
+                    }
+                    if (!predictionFirebaseApp) {
+                        predictionFirebaseApp = firebase.initializeApp(PREDICTION_FIREBASE_CONFIG, 'ck30Prediction');
+                    }
+                }
+
+                predictionDb = predictionFirebaseApp.database();
+                return true;
+            } catch (error) {
+                console.error('❌ Prediction Firebase init failed:', error);
+                return false;
+            }
+        }
+
+        function savePredictionToFirebase(period, prediction, rate) {
+            if (!period || !prediction) return;
+
+            if (!predictionDb) {
+                if (!initializePredictionFirebase()) {
+                    console.warn('⚠️ Prediction Firebase not ready, cannot push.');
+                    return;
+                }
+            }
+
+            const normalizedPeriod = period.toString().trim();
+            const normalizedPrediction = prediction.toString().toUpperCase();
+            const normalizedRate = rate ? rate.toString() : '-';
+
+            if (!normalizedPeriod || !normalizedPrediction || normalizedPrediction === '-') {
+                return;
+            }
+
+            const signature = `${normalizedPeriod}_${normalizedPrediction}_${normalizedRate}`;
+            if (signature === lastPredictionSignature) {
+                return;
+            }
+
+            const payload = {
+                id: `${CHANNEL_KEY}_${Date.now()}`,
+                channelKey: CHANNEL_KEY,
+                channelName: 'CK 30 Mini View',
+                period: normalizedPeriod,
+                predictionType: normalizedPrediction,
+                predictionValue: normalizedPrediction,
+                rate: normalizedRate,
+                timestamp: Date.now(),
+                source: 'CK30Mini1-1'
+            };
+
+            predictionDb.ref('predictions').child(CHANNEL_KEY).set(payload)
+                .then(() => {
+                    lastPredictionSignature = signature;
+                    console.log('✅ Prediction pushed to Realtime Firebase:', payload);
+                })
+                .catch((error) => {
+                    console.error('❌ Failed to push prediction to Realtime Firebase:', error);
+                });
         }
 
         function showStatus(message, type) {
@@ -2932,6 +2732,7 @@
                 const rate = calculateRate(results);
                 setPredictionDisplays(nextPeriod, nextPrediction, rate);
                 togglePredictionBoxes(true);
+                savePredictionToFirebase(nextPeriod, nextPrediction, rate);
             } else {
                 setPredictionDisplays('-', '-', '-');
                 togglePredictionBoxes(false);
@@ -3065,26 +2866,26 @@
                         renderTable(currentResults);
                         updateLastUpdateTime(data.publishedAt || Date.now());
                         // Status message hidden - removed showStatus
-                        // showStatus(`âœ… Connected - ${currentResults.length} results loaded`, 'success');
+                        // showStatus(`✅ Connected - ${currentResults.length} results loaded`, 'success');
                     } else {
                         // Status message hidden
-                        // showStatus('âš ï¸ No data found in Firebase. Waiting for data...', 'loading');
+                        // showStatus('⚠️ No data found in Firebase. Waiting for data...', 'loading');
                         renderTable([]);
                     }
                 }, (error) => {
                     console.error('Firebase read error:', error);
                     // Status message hidden
-                    // showStatus(`âŒ Firebase Error: ${error.message}`, 'error');
+                    // showStatus(`❌ Firebase Error: ${error.message}`, 'error');
                 });
             } catch (error) {
                 console.error('Error connecting to Firebase:', error);
                 // Status message hidden
-                // showStatus(`âŒ Connection Error: ${error.message}`, 'error');
+                // showStatus(`❌ Connection Error: ${error.message}`, 'error');
             }
         }
 
         // ========== BOTTOM MENU BUTTONS FUNCTIONALITY ==========
-        const CK_LOTTERY_LINK = 'https://www.6win999.com/#/register?invitationCode=35815623835';
+        const CK_LOTTERY_LINK = 'https://www.cklottery.club/#/register?invitationCode=81487219676';
         
         function setupMenuButtons() {
             const navToWasiteBtn = document.getElementById('navToWasiteBtn');
@@ -3149,7 +2950,7 @@
                             iframe = document.createElement('iframe');
                             iframe.id = 'ckLotteryIframe';
                             iframe.src = CK_LOTTERY_LINK;
-                            iframe.title = '6 Wasite';
+                            iframe.title = 'Ck Lottery Website';
                             iframe.frameBorder = '0';
                             ckLotteryContainer.appendChild(iframe);
                         } else {
