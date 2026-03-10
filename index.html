@@ -47,7 +47,7 @@
         .results-container h1 {
             color: #000000;
         }
-        
+
         h1 {
             color: #e3e7ef;
             text-align: center;
@@ -62,7 +62,7 @@
             line-height: 1.2;
             text-shadow: 0 0 40px rgba(255, 215, 130, 0.25);
         }
-
+        
         .title-subtitle span {
             display: inline-block;
             letter-spacing: inherit;
@@ -525,7 +525,7 @@
         
         /* Premium fade out */
         #introAnimation.fade-out {
-            opacity: 0;
+                opacity: 0;
             transition: opacity 0.3s ease;
         }
         
@@ -714,7 +714,7 @@
             inset: 0;
             z-index: 9999;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: hidden;
             background: #03183c;
             background-image: radial-gradient(circle at 20% 20%, rgba(75, 176, 255, 0.25), transparent 45%),
                               radial-gradient(circle at 80% 0%, rgba(0, 160, 255, 0.2), transparent 50%),
@@ -747,7 +747,10 @@
             flex-direction: column;
             gap: 18px;
             text-align: center;
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             overflow: hidden;
         }
         
@@ -1240,17 +1243,17 @@
             .logo-container {
                 transform: scale(0.6);
             }
-            
+        
             /* Prediction Box - Very small phones */
             .prediction-label {
                 font-size: 0.5rem;
-            }
-            
+        }
+        
             .prediction-row {
                 gap: 3px;
                 padding: 4px 0;
-            }
-            
+        }
+        
             .prediction-value,
             .prediction-rate {
                 font-size: 0.56rem;
@@ -1258,7 +1261,7 @@
             
             .prediction-box {
                 padding: 8px 10px;
-            }
+        }
         }
         
         /* Performance Optimizations */
@@ -1856,7 +1859,7 @@
             -webkit-backdrop-filter: none;
             border: none;
         }
-
+        
         .ck-lottery-container #ckLotteryIframe {
             position: relative;
             flex: 1;
@@ -2414,7 +2417,7 @@
                     const remaining = expireTime - getServerTime();
                     if (remaining > 0) {
                         // Still has time but key was deactivated
-                        redirectToUnlock("Key has been deactivated by admin");
+                    redirectToUnlock("Key has been deactivated by admin");
                     }
                     return;
                 }
@@ -2673,10 +2676,12 @@
             const mainPrediction = document.getElementById('predictionBox');
             const wasitePrediction = document.getElementById('ckLotteryPredictionBox');
             
+            // Main prediction box is always visible (even when data is not enough)
             if (mainPrediction) {
-                mainPrediction.style.display = hasData ? 'flex' : 'none';
+                mainPrediction.style.display = 'flex';
             }
             
+            // Ck Lottery prediction box can still be toggled
             if (wasitePrediction) {
                 wasitePrediction.style.display = hasData ? 'flex' : 'none';
             }
@@ -2717,7 +2722,9 @@
         function updateStats(results) {
             if (!results || results.length === 0) {
                 document.getElementById('mergedStats').style.display = 'none';
-                document.getElementById('predictionBox').style.display = 'none';
+                // Keep prediction box visible but reset its values
+                setPredictionDisplays('-', '-', '-');
+                togglePredictionBoxes(false);
                 return;
             }
 
@@ -2760,7 +2767,7 @@
                     console.error("Period parse error", e);
                     nextPeriod = "Error";
                 }
-
+                
                 // Calculate and display rate
                 const rate = calculateRate(results);
                 setPredictionDisplays(nextPeriod, nextPrediction, rate);
@@ -2783,10 +2790,19 @@
             }
         }
 
-        function renderTable(results) {
+        // V1.2-style incremental history rendering
+        let displayedHistory = [];
+        let lastSeenLatestPeriodKey = null;
+
+        function getPeriodKey(r) {
+            const v = r.issueNumber ?? r.period ?? r.issue ?? r.periodNumber ?? '';
+            return String(v);
+        }
+
+        function renderTable(fullResults, historyResults) {
             const tableContainer = document.getElementById('resultsTable');
             
-            if (!results || results.length === 0) {
+            if (!fullResults || fullResults.length === 0) {
                 tableContainer.innerHTML = `
                     <div class="no-data">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -2797,6 +2813,21 @@
                     </div>
                 `;
                 updateStats([]);
+                displayedHistory = [];
+                lastSeenLatestPeriodKey = null;
+                return;
+            }
+
+            // Use full raw results for stats & prediction
+            updateStats(fullResults);
+
+            const toShow = historyResults || [];
+            if (toShow.length === 0) {
+                tableContainer.innerHTML = `
+                    <div class="no-data">
+                        <p>Waiting for next period...</p>
+                    </div>
+                `;
                 return;
             }
 
@@ -2815,7 +2846,7 @@
                     <tbody>
             `;
 
-            results.forEach((result, index) => {
+            toShow.forEach((result, index) => {
                 const bigSmall = classifyBigSmall(result.number);
                 const bigSmallClass = bigSmall === 'BIG' ? 'big' : 'small';
                 const premium = result.premium || '-';
@@ -2826,9 +2857,9 @@
                     periodNumber = periodNumber.toString().slice(-5);
                 }
                 
-                // Calculate Historical Prediction
-                // We use the history *after* this result (index + 1 onwards) to verify what we WOULD have predicted
-                const historyForThisRow = results.slice(index + 1);
+                // Calculate Historical Prediction against full history
+                const idxInFull = fullResults.findIndex(x => getPeriodKey(x) === getPeriodKey(result));
+                const historyForThisRow = idxInFull >= 0 ? fullResults.slice(idxInFull + 1) : [];
                 const predictedValue = calculatePrediction(historyForThisRow);
                 
                 let resultHtml = '<span class="pending-tag">WAIT</span>';
@@ -2865,12 +2896,28 @@
             `;
 
             tableContainer.innerHTML = html;
-            updateStats(results);
             // Also update Ck Lottery prediction if container is visible
             const ckLotteryContainer = document.getElementById('ckLotteryContainer');
             if (ckLotteryContainer && ckLotteryContainer.style.display !== 'none') {
                 updateCkLotteryPrediction();
             }
+        }
+
+        function processFirebaseData(data) {
+            const list = data && data.list && Array.isArray(data.list) ? data.list : [];
+            if (list.length === 0) {
+                renderTable([], []);
+                return;
+            }
+            const currentLatestKey = getPeriodKey(list[0]);
+            if (lastSeenLatestPeriodKey === null) {
+                lastSeenLatestPeriodKey = currentLatestKey;
+                displayedHistory = [];
+            } else if (currentLatestKey !== lastSeenLatestPeriodKey && list.length >= 2) {
+                displayedHistory = [list[1]].concat(displayedHistory);
+                lastSeenLatestPeriodKey = currentLatestKey;
+            }
+            renderTable(list, displayedHistory);
         }
 
         function connectFirebase() {
@@ -2896,7 +2943,7 @@
                     
                     if (data && data.list && Array.isArray(data.list)) {
                         currentResults = data.list;
-                        renderTable(currentResults);
+                        processFirebaseData(data);
                         updateLastUpdateTime(data.publishedAt || Date.now());
                         // Status message hidden - removed showStatus
                         // showStatus(`✅ Connected - ${currentResults.length} results loaded`, 'success');
@@ -3041,27 +3088,27 @@
                 return;
             }
             
-            const nextPrediction = calculatePrediction(currentResults);
-            const latestResult = currentResults[0];
-            
-            if (nextPrediction && latestResult && latestResult.issueNumber) {
-                let lastPeriodStr = latestResult.issueNumber.toString();
-                let nextPeriod = "Unknown";
+                const nextPrediction = calculatePrediction(currentResults);
+                const latestResult = currentResults[0];
                 
-                try {
-                    let bigIntPeriod = BigInt(lastPeriodStr);
-                    let nextIntPeriod = bigIntPeriod + 1n;
-                    let nextPeriodStr = nextIntPeriod.toString();
-                    nextPeriod = nextPeriodStr.length > 5 ? nextPeriodStr.slice(-5) : nextPeriodStr;
-                } catch(e) {
-                    console.error("Period parse error", e);
-                    nextPeriod = "Error";
-                }
-                
-                const rate = calculateRate(currentResults);
+                if (nextPrediction && latestResult && latestResult.issueNumber) {
+                    let lastPeriodStr = latestResult.issueNumber.toString();
+                    let nextPeriod = "Unknown";
+                    
+                    try {
+                        let bigIntPeriod = BigInt(lastPeriodStr);
+                        let nextIntPeriod = bigIntPeriod + 1n;
+                        let nextPeriodStr = nextIntPeriod.toString();
+                        nextPeriod = nextPeriodStr.length > 5 ? nextPeriodStr.slice(-5) : nextPeriodStr;
+                    } catch(e) {
+                        console.error("Period parse error", e);
+                        nextPeriod = "Error";
+                    }
+                    
+                    const rate = calculateRate(currentResults);
                 setPredictionDisplays(nextPeriod, nextPrediction, rate);
                 togglePredictionBoxes(true);
-            } else {
+                } else {
                 setPredictionDisplays('-', '-', '-');
                 togglePredictionBoxes(false);
             }
